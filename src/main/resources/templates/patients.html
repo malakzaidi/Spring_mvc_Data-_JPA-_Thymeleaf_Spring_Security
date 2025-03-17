@@ -30,10 +30,13 @@
                 <td th:text="${p.malade}"></td>
                 <td th:text="${p.score}"></td>
                 <td>
-                    <a onclick= "javascript:return confirm('Etes-vous sure ?')" th:href="@{delete(id=${p.id})}" class="btn btn-danger">
+                    <a onclick="javascript:return confirm('Etes-vous sure ?')"
+                       th:href="@{delete(id=${p.id}, page=${currentPage}, keyword=${keyword})}"
+                       class="btn btn-danger">
                         <i class="bi bi-trash"></i>
                     </a>
                 </td>
+            </tr>
             </thead>
 
         </table>

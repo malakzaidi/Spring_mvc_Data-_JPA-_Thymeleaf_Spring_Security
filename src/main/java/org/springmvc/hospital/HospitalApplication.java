@@ -11,6 +11,7 @@ import java.util.Date;
 
 @SpringBootApplication
 public class HospitalApplication  implements CommandLineRunner {
+
     @Autowired
     private PatientRepository patientRepository;
 

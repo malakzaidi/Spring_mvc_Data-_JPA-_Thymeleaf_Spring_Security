@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springmvc.hospital.entities.Patient;
 import org.springmvc.hospital.repositories.PatientRepository;
 
-import java.util.List;
+
 
 @Controller
 @AllArgsConstructor
@@ -29,9 +29,11 @@ public class PatientController {
         return "patients";
     }
     @GetMapping("/delete")
-    public String  delete(Long id,String keyword ,int p){
+    public String delete(Long id,
+                         @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                         @RequestParam(name = "page", defaultValue = "0") Integer p) {
         patientRepository.deleteById(id);
-        return "redirect:/index"+p+"?keyword="+keyword;
+        return "redirect:/index?page=" + p + "&keyword=" + keyword;
     }
     @GetMapping("/")
     public String  home() {
