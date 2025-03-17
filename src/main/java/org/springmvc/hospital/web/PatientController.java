@@ -28,4 +28,8 @@ public class PatientController {
         model.addAttribute("keyword",keyword);
         return "patients";
     }
+    public String  delete(Long id){
+        patientRepository.deleteById(id);
+        return "redirect:/index";
+    }
 }
