@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="template1">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gestion des Patients</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
+<div layout:fragment="content1">
 <div class="p-3">
     <div class="card">
         <div class="card-header"> Liste des patients </div>
@@ -49,6 +52,7 @@
             </ul>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
