@@ -17,8 +17,8 @@ public class PatientController {
     private PatientRepository patientRepository;
 
     @GetMapping("/index")
-    public String index(Model model){
-        Page<Patient> pagePatients = patientRepository.findAll(PageRequest.of(0, 4));
+    public String index(Model model, int page, int size){
+        Page<Patient> pagePatients = patientRepository.findAll(PageRequest.of(page,size));
         model.addAttribute("patients",pagePatients.getContent());
         return "patients";
     }
