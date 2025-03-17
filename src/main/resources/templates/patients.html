@@ -32,7 +32,7 @@
         </table>
             <ul class="nav nav-pills">
                 <li th:each="value , item: ${pages}">
-                    <a th:href="@{/index(page=${item.index})}"
+                    <a th:href="@{/index(page=${item.index},keyword=${keyword})}"
                        th:class="${currentPage==item.index? 'btn btn-info ms-1' : 'btn btn-outline-info'}"
                        th:text = "${item.index}"></a>
                 </li>
