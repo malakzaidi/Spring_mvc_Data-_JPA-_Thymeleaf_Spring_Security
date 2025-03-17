@@ -9,14 +9,12 @@
 <div class="p-3">
     <div class="card">
         <div class="card-header"> Liste des patients </div>
-        <div class="card-body"></div>
+        <div class="card-body">
         <table class="table">
             <thead>
             <tr>
                 <th>ID</th>  <th>Nom</th> <th>Date</th> <th>Malade</th> <th>Score</th>
-
             </tr>
-            </thead>
             <tr th:each="p : ${patients}">
                 <td th:text="${p.id}"></td>
                 <td th:text="${p.nom}"></td>
@@ -24,7 +22,15 @@
                 <td th:text="${p.malade}"></td>
                 <td th:text="${p.score}"></td>
             </tr>
+            </thead>
+
         </table>
+            <ul class="nav nav-pills">
+                <li th:each="page , status : ${pages}">
+                    <a th:href="@{/index(page=${status.index})}" class="btn btn-outline-info" th:text = "${status.index}"></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 </body>
