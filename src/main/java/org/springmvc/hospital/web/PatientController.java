@@ -51,7 +51,14 @@ public class PatientController {
     public String save(Model model, @Valid Patient patient, BindingResult bindingResult){
         if(bindingResult.hasErrors()) return "formPatients";
         patientRepository.save(patient);
-        return "redirect:/formPatients";
+        return "redirect:/index";
+    }
+    @GetMapping("/editPatient")
+    public String editPatient (Model model, Long id){
+        Patient patient = patientRepository.findById(id).orElse(null);
+        if(patient == null) throw new RuntimeException("Patient not found");
+        model.addAttribute("patient",patient);
+        return "editPatients";
     }
 
 }
