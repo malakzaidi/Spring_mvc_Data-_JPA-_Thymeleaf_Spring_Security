@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="p-3">
@@ -13,7 +14,9 @@
             <form method="get" th:action="@{index}">
                 <label>keyword:</label>
                 <input type="text" name="keyword" th:value="${keyword}" >
-                <button type="submit" class="btn btn-info">Chercher</button>
+                <button type="submit" class="btn btn-info">
+                    <i class="bi bi-search"></i>
+                </button>
             </form>
         <table class="table">
             <thead>
@@ -27,7 +30,9 @@
                 <td th:text="${p.malade}"></td>
                 <td th:text="${p.score}"></td>
                 <td>
-                    <a onclick= "javascript:return confirm('Etes-vous sure ?')" th:href="@{delete(id=${p.id})}" class="btn btn-danger">Delete</a>
+                    <a onclick= "javascript:return confirm('Etes-vous sure ?')" th:href="@{delete(id=${p.id})}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
                 </td>
             </thead>
 
