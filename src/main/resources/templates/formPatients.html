@@ -15,22 +15,22 @@ layout:decorate="template1">
             <div>
                 <label> Nom</label>
                 <input class="form-control" type="text" name="nom" th:value="${patient.nom}">
-                <span th:errors="${patient.nom}"></span>
+                <span class="text-danger" th:errors="${patient.nom}"></span>
             </div>
             <div>
                 <label> Date Naissance </label>
                 <input class="form-control" type="date" name="dateNaissance" th:value="${patient.dateNaissance}">
-                <span th:errors="${patient.nom}"></span>
+                <span class="text-danger" th:errors="${patient.nom}"></span>
             </div>
             <div>
                 <label> Malade </label>
                 <input  type="checkbox" name="malade" th:checked="${patient.malade}">
-                <span th:errors="${patient.malade}"></span>
+                <span class="text-danger" th:errors="${patient.malade}"></span>
             </div>
             <div>
                 <label> Score </label>
                 <input class="form-control" type="text" name="score" th:value="${patient.score}">
-                <span th:errors="${patient.score}"></span>
+                <span class="text-danger" th:errors="${patient.score}"></span>
             </div>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </form>
