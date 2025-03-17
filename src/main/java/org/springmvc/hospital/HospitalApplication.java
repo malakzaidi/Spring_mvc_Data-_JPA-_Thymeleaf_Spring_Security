@@ -24,6 +24,4 @@ public class HospitalApplication  implements CommandLineRunner {
         patientRepository.save(new Patient(null ,"Douaa", new Date(),false,132));
         patientRepository.save(new Patient(null ,"Nada", new Date(),false,62));
     }
-
-
 }
