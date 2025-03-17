@@ -1,6 +1,8 @@
 package org.springmvc.hospital.web;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +18,8 @@ public class PatientController {
 
     @GetMapping("/index")
     public String index(Model model){
-        List<Patient> patients = patientRepository.findAll();
-        model.addAttribute("patients",patients);
+        Page<Patient> pagePatients = patientRepository.findAll(PageRequest.of(0, 4));
+        model.addAttribute("patients",pagePatients.getContent());
         return "patients";
     }
 }
