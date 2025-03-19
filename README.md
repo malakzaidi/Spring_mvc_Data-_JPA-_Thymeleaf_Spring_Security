@@ -9,9 +9,7 @@
 
 ## 🎬 Video Demo
 
-<div align="center">
-  <video src="https://github.com/malakzaidi/Spring_mvc_Data-_JPA-_Thymeleaf/raw/main/images/Untitled%20design.mov" width="640" height="360" controls preload></video>
-</div>
+https://github.com/user-attachments/assets/0788b9c6-d2fa-45df-8f67-fcfa292c4231
 
 ## 📑 Table of Contents
 
