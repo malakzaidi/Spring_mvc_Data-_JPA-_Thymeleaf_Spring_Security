@@ -9,7 +9,7 @@
 
 ## 🎬 Video Demo
 
-https://github.com/user-attachments/assets/0788b9c6-d2fa-45df-8f67-fcfa292c4231
+https://github.com/user-attachments/assets/02bcefcc-282c-44ff-a00e-88e0a043342e
 
 ## 📑 Table of Contents
 
