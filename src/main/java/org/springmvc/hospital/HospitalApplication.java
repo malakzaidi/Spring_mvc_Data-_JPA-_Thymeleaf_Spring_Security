@@ -19,7 +19,7 @@ public class HospitalApplication  {
     public static void main(String[] args) {
         SpringApplication.run(HospitalApplication.class, args);
     }
-    //@Bean
+    @Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
         return args -> {
             patientRepository.save(new Patient(null ,"Malak", new Date(),false,132));
