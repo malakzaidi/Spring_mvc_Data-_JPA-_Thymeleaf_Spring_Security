@@ -19,7 +19,7 @@
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
           Patients </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="@{/admin/formPatients}">Nouveau</a></li>
+          <li th:if="${authorization.expression('hasRole(\'ADMIN\')')}"><a class="dropdown-item" href="@{/admin/formPatients}">Nouveau</a></li>
           <li><a class="dropdown-item" href="@{/user/index}">Chercher</a></li>
         </ul>
       </li>
