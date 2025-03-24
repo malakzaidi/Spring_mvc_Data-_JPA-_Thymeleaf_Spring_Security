@@ -32,6 +32,7 @@ import org.springframework.security.web.SecurityFilterChain;
         httpSecurity.formLogin();
         httpSecurity.authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER");
         httpSecurity.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("ADMIN");
+        httpSecurity.exceptionHandling().accessDeniedPage("/notAuthorized");
 
         httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
         return httpSecurity.build();
