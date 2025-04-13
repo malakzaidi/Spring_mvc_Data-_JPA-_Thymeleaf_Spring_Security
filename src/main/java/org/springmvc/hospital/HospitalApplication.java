@@ -45,9 +45,9 @@ public class HospitalApplication  {
         }
 
     }
-    @Bean
+    //@Bean
     CommandLineRunner userSeeder (JdbcUserDetailsManager jdbcUserDetailsManager, PasswordEncoder passwordEncoder) {
-        return args -> {
+     return args -> {
             if (!userExists(jdbcUserDetailsManager, "user11")) {
                 jdbcUserDetailsManager.createUser(User.withUsername("user11").password(passwordEncoder.encode("1234")).roles("USER").build());
             }
@@ -66,16 +66,17 @@ public class HospitalApplication  {
         return args -> {
             accountService.addNewRole("USER");
             accountService.addNewRole("ADMIN");
-            accountService.addNewUser("user1","1234","user1@gmail.com","1234");
-            accountService.addNewUser("user2","1234","user2@gmail.com","1234");
-            accountService.addNewUser("admin","1234","admin@gmail.com","1234");
 
-            accountService.addRoleToAppUser("ADMIN","admin");
-            accountService.addRoleToAppUser("USER","admin");
-            accountService.addRoleToAppUser("USER","user1");
-            accountService.addRoleToAppUser("USER","user2");
+            accountService.addNewUser("user9", "user9@gmail.com", "1234", "1234");
+            accountService.addNewUser("user10", "user10@gmail.com", "1234", "1234");
+            accountService.addNewUser("admin9", "admin9@gmail.com", "1234", "1234");
 
+            accountService.addRoleToAppUser("USER", "user9");
+            accountService.addRoleToAppUser("USER", "user10");
+            accountService.addRoleToAppUser("ADMIN", "admin9");
+            accountService.addRoleToAppUser("USER", "admin9"); // fixed from admin10 → admin9
         };
     }
+
 }
 

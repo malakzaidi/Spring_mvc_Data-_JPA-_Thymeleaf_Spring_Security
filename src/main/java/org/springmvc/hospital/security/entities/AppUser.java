@@ -22,6 +22,6 @@ public class AppUser {
     private String password;
     @NotBlank
     private String email;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<AppRole> roles;
 }
