@@ -1,5 +1,6 @@
 package org.springmvc.hospital.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +14,14 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
+import org.springmvc.hospital.security.service.UserDetailsServiceImpl;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity()
+@AllArgsConstructor
 public class SecurityConfig {
 
 
@@ -28,11 +31,12 @@ public class SecurityConfig {
     }
 
 
-    @Bean
+    //@Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
+    //@Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         return new InMemoryUserDetailsManager(
                 User.withUsername("admin").password(passwordEncoder().encode("1234")).roles("USER", "ADMIN").build(),
@@ -42,7 +46,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, UserDetailsServiceImpl userDetailsServiceImpl) throws Exception {
         httpSecurity
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -60,6 +64,8 @@ public class SecurityConfig {
                         .accessDeniedPage("/notAuthorized")
                 )
                 .rememberMe(Customizer.withDefaults());
+
+        httpSecurity.userDetailsService(userDetailsServiceImpl);
         return httpSecurity.build();
     }
 }
