@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -19,23 +20,24 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @EnableMethodSecurity()
 public class SecurityConfig {
-    private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
-    //@Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         return new InMemoryUserDetailsManager(
-                User.withUsername("admin").password(passwordEncoder.encode("1234")).roles("USER", "ADMIN").build(),
-                User.withUsername("user1").password(passwordEncoder.encode("1234")).roles("USER").build(),
-                User.withUsername("user2").password(passwordEncoder.encode("1234")).roles("USER").build()
+                User.withUsername("admin").password(passwordEncoder().encode("1234")).roles("USER", "ADMIN").build(),
+                User.withUsername("user1").password(passwordEncoder().encode("1234")).roles("USER").build(),
+                User.withUsername("user2").password(passwordEncoder().encode("1234")).roles("USER").build()
         );
     }
 
