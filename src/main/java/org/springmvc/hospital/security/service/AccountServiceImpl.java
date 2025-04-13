@@ -38,19 +38,49 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
-
     @Override
     public AppRole addNewRole(String role) {
-        return null;
+        AppRole appRole = appRoleRepository.findById(role).orElse(null);
+        if(appRole != null){
+            throw new RuntimeException("Role already exists");
+        }
+        appRole = AppRole.builder().role(role).build();
+
+        return null ;
     }
 
     @Override
     public void addRoleToAppUser(String role, String username) {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if(appUser != null){
+            throw new RuntimeException("User already exists");
+        }
+        AppRole appRole = appRoleRepository.findById(role).orElse(null);
+        if(appRole != null){
+            throw new RuntimeException("Role already exists");
+        }
+        appUser.getRoles().add(appRole);
+        //Done explicitly with Transactional
+        //appUserRepository.save(appUser);
 
     }
 
     @Override
     public void deleteRoleToAppUser(String role, String username) {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if(appUser != null){
+            throw new RuntimeException("User already exists");
+        }
+        AppRole appRole = appRoleRepository.findById(role).orElse(null);
+        if(appRole != null){
+            throw new RuntimeException("Role already exists");
+        }
+        appUser.getRoles().remove(appRole);
+    }
+
+    @Override
+    public AppUser loadUserByUsername(String username) {
+        return appUserRepository.findByUsername(username);
 
     }
 }

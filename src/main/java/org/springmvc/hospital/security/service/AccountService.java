@@ -8,4 +8,5 @@ import org.springmvc.hospital.security.entities.AppUser;
     AppRole addNewRole(String role);
     void addRoleToAppUser(String role, String username);
     void deleteRoleToAppUser(String role, String username);
+    AppUser loadUserByUsername(String username);
 }
