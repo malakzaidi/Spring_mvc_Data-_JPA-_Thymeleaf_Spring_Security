@@ -34,6 +34,7 @@ public class HospitalApplication  {
         };
 
     }
+
     private boolean userExists(JdbcUserDetailsManager userDetailsManager ,String username) {
         try {
             userDetailsManager.loadUserByUsername(username);
@@ -46,15 +47,15 @@ public class HospitalApplication  {
     @Bean
     CommandLineRunner userSeeder (JdbcUserDetailsManager jdbcUserDetailsManager, PasswordEncoder passwordEncoder) {
         return args -> {
-            if (!userExists(jdbcUserDetailsManager, "user1")) {
-                jdbcUserDetailsManager.createUser(User.withUsername("user1").password(passwordEncoder.encode("1234")).roles("USER").build());
+            if (!userExists(jdbcUserDetailsManager, "user11")) {
+                jdbcUserDetailsManager.createUser(User.withUsername("user11").password(passwordEncoder.encode("1234")).roles("USER").build());
             }
-            if(!userExists(jdbcUserDetailsManager, "user2")) {
-                jdbcUserDetailsManager.createUser(User.withUsername("user2").password(passwordEncoder.encode("1234")).roles("USER").build());
+            if(!userExists(jdbcUserDetailsManager, "user22")) {
+                jdbcUserDetailsManager.createUser(User.withUsername("user22").password(passwordEncoder.encode("1234")).roles("USER").build());
 
             }
-            if(!userExists(jdbcUserDetailsManager, "admin")) {
-                jdbcUserDetailsManager.createUser(User.withUsername("admin").password(passwordEncoder.encode("1234")).roles("USER").build());
+            if(!userExists(jdbcUserDetailsManager, "admin3")) {
+                jdbcUserDetailsManager.createUser(User.withUsername("admin3").password(passwordEncoder.encode("1234")).roles("ADMIN","USER").build());
 
             }
         };
