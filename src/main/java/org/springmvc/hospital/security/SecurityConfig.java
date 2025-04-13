@@ -9,35 +9,55 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.Customizer;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
- public class  SecurityConfig  {
-   @Autowired
-   private PasswordEncoder passwordEncoder;
+@EnableMethodSecurity()
+public class SecurityConfig {
+    private final PasswordEncoder passwordEncoder;
 
-   @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+    public SecurityConfig(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Bean
+    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
+        return new JdbcUserDetailsManager(dataSource);
+    }
+
+    //@Bean
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         return new InMemoryUserDetailsManager(
-                User.withUsername("admin").password(passwordEncoder.encode("1234")).roles("USER","ADMIN").build(),
+                User.withUsername("admin").password(passwordEncoder.encode("1234")).roles("USER", "ADMIN").build(),
                 User.withUsername("user1").password(passwordEncoder.encode("1234")).roles("USER").build(),
                 User.withUsername("user2").password(passwordEncoder.encode("1234")).roles("USER").build()
-
         );
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.formLogin().loginPage("/login").permitAll();
-        httpSecurity.authorizeHttpRequests().requestMatchers("/webjars").permitAll();
-        httpSecurity.rememberMe();
-        //httpSecurity.authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER");
-        // httpSecurity.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("ADMIN");
-        httpSecurity.exceptionHandling().accessDeniedPage("/notAuthorized");
-        httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
+        httpSecurity
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/")
+                        .permitAll()
+                )
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/webjars/**").permitAll()
+                        .requestMatchers("/notAuthorized").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/notAuthorized")
+                )
+                .rememberMe(Customizer.withDefaults());
         return httpSecurity.build();
     }
-
 }
-

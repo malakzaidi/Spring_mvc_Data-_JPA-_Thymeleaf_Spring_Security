@@ -32,14 +32,16 @@ public class PatientController {
         model.addAttribute("keyword",keyword);
         return "patients";
     }
+
     @GetMapping("/admin/delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String delete(Long id,
                          @RequestParam(name = "keyword", defaultValue = "") String keyword,
                          @RequestParam(name = "page", defaultValue = "0") Integer p) {
         patientRepository.deleteById(id);
-        return "redirect:/index?page=" + p + "&keyword=" + keyword;
+        return "redirect:/user/index?page=" + p + "&keyword=" + keyword;
     }
+
     @GetMapping("/")
     public String  home() {
         return "redirect:/user/index";
@@ -51,6 +53,7 @@ public class PatientController {
         model.addAttribute("patient",new Patient());
         return "formPatients";
     }
+
     @PostMapping("/admin/save")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String save(Model model, @Valid Patient patient,

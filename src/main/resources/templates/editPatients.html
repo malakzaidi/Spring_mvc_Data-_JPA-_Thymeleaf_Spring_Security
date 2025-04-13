@@ -1,46 +1,106 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="template1">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
 <head>
     <meta charset="UTF-8">
     <title>Formulaire des Patients</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+    <style>
+        .col-md-6 {
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dfe6e9;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+        .form-control:focus {
+            border-color: #666666;
+            box-shadow: 0 0 0 0.2rem rgba(102, 102, 102, 0.25);
+            outline: none;
+        }
+        label {
+            color: #333333;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        div {
+            margin-bottom: 1.5rem;
+        }
+        .btn-primary {
+            background: #333333;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .btn-primary:hover {
+            background: #555555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(51, 51, 51, 0.3);
+        }
+        input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+            accent-color: #333333;
+        }
+        .text-danger {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content1">
     <div class="col-md-6 offset-3">
-        <form method="post"  th:action="@{save(page=${page},keyword=${keyword})}">
+        <form method="post" th:action="@{save(page=${page},keyword=${keyword})}">
             <div>
-                <label > ID :</label>
-                <label th:text="${patient.id}" > </label>
+                <label>ID :</label>
+                <label th:text="${patient.id}"></label>
                 <input class="form-control" type="hidden" name="id" th:value="${patient.id}">
             </div>
             <div>
-                <label> Nom</label>
+                <label>Nom</label>
                 <input class="form-control" type="text" name="nom" th:value="${patient.nom}">
                 <span class="text-danger" th:errors="${patient.nom}"></span>
             </div>
             <div>
-                <label> Date Naissance </label>
+                <label>Date Naissance</label>
                 <input class="form-control" type="date" name="dateNaissance" th:value="${patient.dateNaissance}">
                 <span class="text-danger" th:errors="${patient.nom}"></span>
             </div>
             <div>
-                <label> Malade </label>
-                <input  type="checkbox" name="malade" th:checked="${patient.malade}">
+                <label>Malade</label>
+                <input type="checkbox" name="malade" th:checked="${patient.malade}">
                 <span class="text-danger" th:errors="${patient.malade}"></span>
             </div>
             <div>
-                <label> Score </label>
+                <label>Score</label>
                 <input class="form-control" type="text" name="score" th:value="${patient.score}">
                 <span class="text-danger" th:errors="${patient.score}"></span>
             </div>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </form>
     </div>
-
-    </div>
+</div>
 </body>
 </html>
