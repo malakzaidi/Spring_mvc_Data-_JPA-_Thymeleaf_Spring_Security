@@ -34,12 +34,29 @@ public class HospitalApplication  {
         };
 
     }
+    private boolean userExists(JdbcUserDetailsManager userDetailsManager ,String username) {
+        try {
+            userDetailsManager.loadUserByUsername(username);
+            return true;
+        } catch (Exception e ){
+            return false;
+        }
+
+    }
     @Bean
     CommandLineRunner userSeeder (JdbcUserDetailsManager jdbcUserDetailsManager, PasswordEncoder passwordEncoder) {
         return args -> {
-            jdbcUserDetailsManager.createUser(User.withUsername("user1").password(passwordEncoder.encode("1234")).roles("USER").build());
-            jdbcUserDetailsManager.createUser(User.withUsername("user2").password(passwordEncoder.encode("1234")).roles("USER").build());
-            jdbcUserDetailsManager.createUser(User.withUsername("admin").password(passwordEncoder.encode("1234")).roles("ADMIN").build());
+            if (!userExists(jdbcUserDetailsManager, "user1")) {
+                jdbcUserDetailsManager.createUser(User.withUsername("user1").password(passwordEncoder.encode("1234")).roles("USER").build());
+            }
+            if(!userExists(jdbcUserDetailsManager, "user2")) {
+                jdbcUserDetailsManager.createUser(User.withUsername("user2").password(passwordEncoder.encode("1234")).roles("USER").build());
+
+            }
+            if(!userExists(jdbcUserDetailsManager, "admin")) {
+                jdbcUserDetailsManager.createUser(User.withUsername("admin").password(passwordEncoder.encode("1234")).roles("USER").build());
+
+            }
         };
     };
 }
